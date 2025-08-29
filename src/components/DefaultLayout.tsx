@@ -4,6 +4,7 @@ import axiosClient from "../axios-client";
 import { useSelector } from "react-redux";
 import { useLogout } from "../hooks/queries/useAuth";
 import { RootState } from "../store/types";
+import Button from "./reusable/Button";
 
 export default function DefaultLayout(): JSX.Element {
   const location = useLocation();
@@ -112,12 +113,12 @@ export default function DefaultLayout(): JSX.Element {
               <span className="text-gray-700 font-medium">
                 {reduxUser?.name}
               </span>
-              <button
+              <Button
+                variant="secondary"
                 onClick={onLogout}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
               >
                 Logout
-              </button>
+              </Button>
             </div>
           </div>
         </header>
