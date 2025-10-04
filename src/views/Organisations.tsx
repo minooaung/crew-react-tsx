@@ -6,7 +6,8 @@ import {
   useDeleteOrganisation,
 } from "../hooks/queries/useOrganisations";
 import { Organisation, PaginationLink } from "../types";
-import ErrorAlert from "../utils/ErrorAlert";
+import ErrorAlert from "../components/reusable/ErrorAlert";
+import Button from "../components/reusable/Button";
 
 interface ValidationErrors {
   [key: string]: string[];
@@ -74,12 +75,12 @@ export default function Organisations(): JSX.Element {
           </h1>
         </div>
         <div>
-          <Link
+          <Button
             to="/organisations/new"
-            className="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            variant="primary"
           >
             Add new organisation
-          </Link>
+          </Button>
         </div>
       </div>
 
@@ -175,12 +176,13 @@ export default function Organisations(): JSX.Element {
                       >
                         Edit
                       </Link>
-                      <button
+                      <Button
+                        variant="danger"
                         onClick={() => onDelete(org)}
-                        className="text-red-600 hover:text-red-900"
+                        size="sm"
                       >
                         Delete
-                      </button>
+                      </Button>
                     </td>
                   </tr>
                 ))}
@@ -196,26 +198,29 @@ export default function Organisations(): JSX.Element {
                   (link: PaginationLink, index: number) => {
                     if (link.label === "&laquo; Previous") {
                       return (
-                        <button
+                        <Button
                           key={index}
+                          variant="pagination"
                           onClick={() => handlePageChange(link.url)}
                           disabled={!link.url}
-                          className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+                          size="sm"
                         >
                           Previous
-                        </button>
+                        </Button>
                       );
                     }
                     if (link.label === "Next &raquo;") {
                       return (
-                        <button
+                        <Button
                           key={index}
+                          variant="pagination"
                           onClick={() => handlePageChange(link.url)}
                           disabled={!link.url}
-                          className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+                          size="sm"
+                          className="ml-3"
                         >
                           Next
-                        </button>
+                        </Button>
                       );
                     }
                     return null;
@@ -249,71 +254,71 @@ export default function Organisations(): JSX.Element {
                       (link: PaginationLink, index: number) => {
                         if (link.label === "&laquo; Previous") {
                           return (
-                            <button
+                            <Button
                               key={index}
+                              variant="paginationFirst"
                               onClick={() => handlePageChange(link.url)}
                               disabled={!link.url}
-                              className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                              className="px-2"
+                              icon={
+                                <svg
+                                  className="h-5 w-5"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
+                              }
                             >
                               <span className="sr-only">Previous</span>
-                              <svg
-                                className="h-5 w-5"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                aria-hidden="true"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </button>
+                            </Button>
                           );
                         }
                         if (link.label === "Next &raquo;") {
                           return (
-                            <button
+                            <Button
                               key={index}
+                              variant="paginationLast"
                               onClick={() => handlePageChange(link.url)}
                               disabled={!link.url}
-                              className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                              className="px-2"
+                              icon={
+                                <svg
+                                  className="h-5 w-5"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                    clipRule="evenodd"
+                                  />
+                              </svg>
+                              }
                             >
                               <span className="sr-only">Next</span>
-                              <svg
-                                className="h-5 w-5"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                aria-hidden="true"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </button>
+                            </Button>
                           );
                         }
                         return (
-                          <button
+                          <Button
                             key={index}
+                            variant={link.active ? "paginationActive" : "pagination"}
                             onClick={() => handlePageChange(link.url)}
                             disabled={!link.url}
-                            className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
-                              link.active
-                                ? "z-10 bg-blue-50 border-blue-500 text-blue-600"
-                                : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50"
-                            } ${
-                              !link.url ? "opacity-50 cursor-not-allowed" : ""
-                            }`}
                           >
                             <span
                               dangerouslySetInnerHTML={{ __html: link.label }}
                             ></span>
-                          </button>
+                          </Button>
                         );
                       }
                     )}
