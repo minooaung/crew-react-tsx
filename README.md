@@ -153,14 +153,18 @@ The application includes a powerful reporting system that allows users to genera
 
    ```env
    VITE_BACKEND_FRAMEWORK=ASP.NET
-   VITE_API_BASE_URL=http://localhost:5003
+   VITE_API_BASE_URL=http://your-aspnet-url:port
+
+   TEST_CLIENT_URL=http://your-frontend:port
    ```
 
    To run along with Laravel REST API, add the following
 
    ```env
    VITE_BACKEND_FRAMEWORK=laravel
-   VITE_API_BASE_URL=http://localhost:8000
+   VITE_API_BASE_URL=http://your-laravel-url:port
+
+   TEST_CLIENT_URL=http://your-frontend:port
    ```
 
 3. Start development server:
