@@ -2,7 +2,8 @@ import { useRef, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSignup } from "../hooks/queries/useAuth";
 import { SignupData } from "../types";
-import ErrorAlert from "../utils/ErrorAlert";
+import ErrorAlert from "../components/reusable/ErrorAlert";
+import Button from "../components/reusable/Button";
 
 interface ValidationErrors {
   [key: string]: string[];
@@ -97,12 +98,15 @@ export default function Signup(): JSX.Element {
           autoComplete="new-password"
         />
 
-        <button
-          className="w-full bg-purple-800 text-white py-4 px-4 text-base transition-all hover:bg-purple-900 disabled:opacity-70 disabled:cursor-not-allowed"
+        <Button
+          type="submit"
+          variant="auth"
+          size="full"
           disabled={signupMutation.isPending}
+          loading={signupMutation.isPending}
         >
           {signupMutation.isPending ? "Creating account..." : "Signup"}
-        </button>
+        </Button>
 
         <p className="mt-4 text-center text-gray-400 text-base">
           Already registered?{" "}

@@ -13,7 +13,8 @@ import {
   useUpdateOrganisation,
 } from "../hooks/queries/useOrganisations";
 import { User, OrganisationData, UpdateOrganisationData } from "../types";
-import ErrorAlert from "../utils/ErrorAlert";
+import ErrorAlert from "../components/reusable/ErrorAlert";
+import Button from "../components/reusable/Button";
 
 interface OrganisationFormData {
   id: number | null;
@@ -159,24 +160,26 @@ export default function OrganisationForm(): JSX.Element {
           </div>
 
           <div className="flex justify-end space-x-3">
-            <button
+            <Button
               type="button"
+              variant="secondary"
               onClick={onCancel}
               disabled={
                 createOrganisationMutation.isPending ||
                 updateOrganisationMutation.isPending
               }
-              className="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               Cancel
-            </button>
-            <button
+            </Button>
+            <Button
               type="submit"
+              variant="primary"
               disabled={
                 createOrganisationMutation.isPending ||
                 updateOrganisationMutation.isPending
               }
-              className="inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+              loading={createOrganisationMutation.isPending ||
+              updateOrganisationMutation.isPending}
             >
               {createOrganisationMutation.isPending ||
               updateOrganisationMutation.isPending
@@ -184,7 +187,7 @@ export default function OrganisationForm(): JSX.Element {
                 : organisation.id
                 ? "Update"
                 : "Create"}
-            </button>
+            </Button>
           </div>
         </form>
       </div>
