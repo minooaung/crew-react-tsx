@@ -1,17 +1,19 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useEffect, MouseEvent } from "react";
 import axiosClient from "../axios-client";
-import { useSelector } from "react-redux";
 import { useLogout } from "../hooks/queries/useAuth";
-import { RootState } from "../store/types";
+import { useAppSelector, useAppDispatch } from "../store";
+import { notiActions } from "../store/notification";
 import Button from "./reusable/Button";
 
 export default function DefaultLayout(): JSX.Element {
   const location = useLocation();
-  const reduxUser = useSelector((state: RootState) => state.auth.user);
-  const notification = useSelector(
-    (state: RootState) => state.notification.notificationMessage
+  // Using typed hooks - no need to specify RootState type!
+  const reduxUser = useAppSelector((state) => state.auth.user);
+  const notification = useAppSelector(
+    (state) => state.notification.notificationMessage
   );
+  const dispatch = useAppDispatch();
   const { mutate: logout } = useLogout();
 
   if (import.meta.env.VITE_BACKEND_FRAMEWORK === "laravel") {
@@ -55,6 +57,17 @@ export default function DefaultLayout(): JSX.Element {
   const onLogout = (ev: MouseEvent<HTMLButtonElement>): void => {
     ev.preventDefault();
     logout();
+  };
+
+  // Example using typed dispatch - show user info notification
+  const onUserNameClick = (): void => {
+    dispatch(
+      notiActions.settingNotiMessage(`Welcome back, ${reduxUser?.name}!`)
+    );
+    // Auto-clear notification after 3 seconds
+    setTimeout(() => {
+      dispatch(notiActions.settingNotiMessage(null));
+    }, 3000);
   };
 
   const isActive = (path: string): boolean => {
@@ -110,13 +123,14 @@ export default function DefaultLayout(): JSX.Element {
               {/* Page title will go here from child components */}
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-gray-700 font-medium">
-                {reduxUser?.name}
-              </span>
-              <Button
-                variant="secondary"
-                onClick={onLogout}
+              <button
+                onClick={onUserNameClick}
+                className="text-gray-700 font-medium hover:text-blue-600 transition-colors cursor-pointer"
+                title="Click to see welcome message"
               >
+                {reduxUser?.name}
+              </button>
+              <Button variant="secondary" onClick={onLogout}>
                 Logout
               </Button>
             </div>

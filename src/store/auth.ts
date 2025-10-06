@@ -6,6 +6,14 @@ const initialState: AuthState = {
   user: JSON.parse(localStorage.getItem("user") || "null"),
 };
 
+// For debugging use:
+// const initialState: AuthState = {
+//   user: (() => {
+//     console.log("READING FROM LOCALSTORAGE - Store initialization!");
+//     return JSON.parse(localStorage.getItem("user") || "null");
+//   })(),
+// };
+
 const authSlice = createSlice({
   name: "authentication",
   initialState,
@@ -23,4 +31,4 @@ const authSlice = createSlice({
 
 export const authActions = authSlice.actions;
 
-export default authSlice.reducer; 
+export default authSlice.reducer;
